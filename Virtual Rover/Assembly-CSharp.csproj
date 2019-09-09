@@ -62,7 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\SerialCommunicator.cs" />
+    <Compile Include="Assets\Scripts\SerialCommunicator.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/NASA/virtual_rover/Virtual Rover/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
