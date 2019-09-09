@@ -1,0 +1,2 @@
+D:\Projects\NASA\virtual_rover\Virtual Rover\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\Projects\NASA\virtual_rover\Virtual Rover\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
