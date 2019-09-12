@@ -113,7 +113,7 @@ public class SerialCommunicator : MonoBehaviour
 
         command = Regex.Replace(command, @"[d_e]", "");
         position = float.Parse(command);
-        if((Mathf.Abs(position-last_dist_echo) > 0.8)){
+        if((Mathf.Abs(position-last_dist_echo) > 0.2)){
             //transform.position = new Vector3(position, transform.position.y, transform.position.z);
             target = new Vector3(position, transform.position.y, transform.position.z);
         }
