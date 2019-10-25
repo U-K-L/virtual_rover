@@ -51,7 +51,7 @@ public class SerialRotation : MonoBehaviour
         //gameObject.transform.position = new Vector3(0, 0, 0);
         //rover.GetComponent<Rigidbody>().AddForce(target * 20);
         float tol = 0.0001f;
-        velocity += 10*target.magnitude * Time.deltaTime;
+        velocity -= Mathf.Abs(1000*target.z * Time.deltaTime);
         /*
         if (Mathf.Abs(target.x) <= tol)
             velocity.x = 0.0f;
@@ -60,11 +60,13 @@ public class SerialRotation : MonoBehaviour
         if (Mathf.Abs(target.z) <= tol)
             velocity.z = 0.0f;
             */
-        if (Mathf.Abs(target.x) <= tol)
+        if (Mathf.Abs(target.y) <= tol)
             velocity = 0.0f;
 
         Debug.Log("Velocity is: " + velocity);
-        rover.transform.position += rover.transform.right * Time.deltaTime * velocity;
+        Vector3 vec = rover.transform.position+(rover.transform.right * Time.deltaTime * velocity);
+        Vector3 smoothedPosition = Vector3.Lerp(rover.transform.position, vec, smoothSpeed);
+        rover.transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, smoothedPosition.z);
         /*
         if (target.magnitude > pastTarget.magnitude * 1.02)
         {

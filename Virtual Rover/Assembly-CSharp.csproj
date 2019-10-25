@@ -62,9 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\SerialCommunicator.cs" />
     <Compile Include="Assets\Scripts\SerialRotation.cs" />
     <Compile Include="Assets\Scripts\Tiles.cs" />
+    <None Include="Assets\Scripts\InverseRender.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/NASA/virtual_rover/Virtual Rover/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
