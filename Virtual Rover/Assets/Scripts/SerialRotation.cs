@@ -18,6 +18,7 @@ public class SerialRotation : MonoBehaviour
     private Queue outputQueue; //Output queue for thread communication.
     private float last_dist_echo = 0;
     private Vector3 target;
+    private Vector3 pastTarget;
     public Vector3 _roverPositions;
     public float position;
     public int baudrate = 9600;
@@ -28,6 +29,7 @@ public class SerialRotation : MonoBehaviour
     public Tiles ghex;
     public int mapSize = 10;
     public float smoothSpeed = 0.125f;
+    public float velocity;
 
     public GameObject rover;
     // Start is called before the first frame update
@@ -43,6 +45,34 @@ public class SerialRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Moves rover's position.
+        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, target, smoothSpeed);
+        //rover.transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, smoothedPosition.z);
+        //gameObject.transform.position = new Vector3(0, 0, 0);
+        //rover.GetComponent<Rigidbody>().AddForce(target * 20);
+        float tol = 0.0001f;
+        velocity += 10*target.magnitude * Time.deltaTime;
+        /*
+        if (Mathf.Abs(target.x) <= tol)
+            velocity.x = 0.0f;
+        if (Mathf.Abs(target.y) <= tol)
+            velocity.y = 0.0f;
+        if (Mathf.Abs(target.z) <= tol)
+            velocity.z = 0.0f;
+            */
+        if (Mathf.Abs(target.x) <= tol)
+            velocity = 0.0f;
+
+        Debug.Log("Velocity is: " + velocity);
+        rover.transform.position += rover.transform.right * Time.deltaTime * velocity;
+        /*
+        if (target.magnitude > pastTarget.magnitude * 1.02)
+        {
+            rover.GetComponent<Rigidbody>().AddForce(target * 4);
+            pastTarget = target;
+        }
+        */
+
         string r = ReadThread();
         if (r != null)
         {
@@ -57,7 +87,7 @@ public class SerialRotation : MonoBehaviour
 
     public void CommandParser(string command)
     {
-        Debug.Log(command);
+        //Debug.Log(command);
         if (command.StartsWith("d_e"))
         {
             getDistance(command);
@@ -77,6 +107,26 @@ public class SerialRotation : MonoBehaviour
         {
             getOrientation(command);
         }
+
+        if (command.StartsWith("roverP"))
+        {
+            getPosition(command);
+        }
+    }
+
+    void getPosition(string command)
+    {
+
+
+
+        command = Regex.Replace(command, @"[roverP]", "");
+        string[] vector = Regex.Split(command, @"[,]");
+        //Debug.Log(vector[0]);
+        //Debug.Log(vector[1]);
+        //Debug.Log(vector[2]);
+        //Debug.Log(vector[3]);
+        Debug.Log(target);
+        target = new Vector3(float.Parse(vector[0]), float.Parse(vector[2]), float.Parse(vector[1]));
     }
 
     void getOrientation(string command)
@@ -91,7 +141,7 @@ public class SerialRotation : MonoBehaviour
         //Debug.Log(vector[3]);
         newQuaternion.Set(float.Parse(vector[1]), float.Parse(vector[2]), float.Parse(vector[0]), float.Parse(vector[3]));
         rover.transform.rotation = Quaternion.Lerp(rover.transform.rotation, newQuaternion, Time.time * 10);
-        //rover.transform.rotation = newQuaternion;
+        rover.transform.rotation = newQuaternion;
     }
 
     void resetTiles()
