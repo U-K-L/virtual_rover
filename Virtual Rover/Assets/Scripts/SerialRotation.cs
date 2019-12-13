@@ -25,12 +25,10 @@ public class SerialRotation : MonoBehaviour
     public string port = "COM9";
     public int delay = 7; //How long to wait between each message.
     public bool looping = true;
-    public List<Tiles> tiles;
-    public Tiles ghex;
+    public TileMap tileMap;
     public int mapSize = 10;
     public float smoothSpeed = 0.125f;
     public float velocity;
-
     public GameObject rover;
     // Start is called before the first frame update
     void Start()
@@ -114,6 +112,11 @@ public class SerialRotation : MonoBehaviour
         {
             getPosition(command);
         }
+
+        if (command.StartsWith("n_n"))
+        {
+            getNodes(command);
+        }
     }
 
     void getPosition(string command)
@@ -148,7 +151,7 @@ public class SerialRotation : MonoBehaviour
 
     void resetTiles()
     {
-        foreach(Tiles tile in tiles)
+        foreach(Tiles tile in tileMap.tiles)
         {
             tile.transform.localPosition = new Vector3(0,0,0);
         }
@@ -158,14 +161,31 @@ public class SerialRotation : MonoBehaviour
     {
         command = Regex.Replace(command, @"[m_p]", "");
         string[] vectors = Regex.Split(command, @"[|]");
-        for (int i = 0; i < vectors.Length-1; i++)
+        for (int i = 0; i < tileMap.nodeSize; i++)
         {
             string[] vector = Regex.Split(vectors[i], @"[,]");
             Debug.Log(vector[0]);
-            tiles[i].transform.localPosition = new Vector3(float.Parse(vector[0]), float.Parse(vector[1]), float.Parse(vector[2]));
+            tileMap.tiles[i].transform.localPosition = new Vector3(float.Parse(vector[0]), float.Parse(vector[2]), float.Parse(vector[1]));
 
 
         }
+    }
+
+    void getNodes(string command)
+    {
+
+        command = Regex.Replace(command, @"[n_n]", "");
+        if(tileMap.nodeSize != int.Parse(command))
+        {
+            tileMap.nodeSize = int.Parse(command);
+            tileMap.AddTiles();
+
+        }
+            
+
+
+        Debug.Log(command);
+
     }
 
     void getDistance(string command)

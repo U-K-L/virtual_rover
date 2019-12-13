@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Diplay node tiles for rover. The internal mapping is dealt with in this code.
+
 public class Tiles : MonoBehaviour
 {
-    public GameObject obj;
     // Start is called before the first frame update
     void Start()
     {

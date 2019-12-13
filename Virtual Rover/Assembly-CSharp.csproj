@@ -65,7 +65,14 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\SerialCommunicator.cs" />
     <Compile Include="Assets\Scripts\SerialRotation.cs" />
+    <Compile Include="Assets\Scripts\TileMap.cs" />
     <Compile Include="Assets\Scripts\Tiles.cs" />
+    <Compile Include="Assets\Scripts\VRGoogleMaps.cs" />
+    <None Include="Assets\UCLAGameLab\Wireframe\Shaders\UCLA GameLab Wireframe Functions.cginc" />
+    <None Include="Assets\UCLAGameLab\Wireframe\Shaders\UCLA GameLab Wireframe.shader" />
+    <None Include="Assets\UCLAGameLab\Wireframe\Shaders\UCLA GameLab Cutout Wireframe.shader" />
+    <None Include="Assets\UCLAGameLab\Wireframe\Shaders\UCLA GameLab Double-Sided Wireframe.shader" />
+    <None Include="Assets\UCLAGameLab\Wireframe\Shaders\UCLA GameLab Double-Sided Cutout Wireframe.shader" />
     <None Include="Assets\Scripts\InverseRender.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Projects/NASA/virtual_rover/Virtual Rover/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
